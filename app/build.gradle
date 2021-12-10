@@ -68,7 +68,7 @@ dependencies {
 
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
 
     //Room database
     def roomVersion = "2.3.0"
@@ -85,9 +85,10 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-RC2'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0-RC2'
 
+
     //Hilt
     implementation "com.google.dagger:hilt-android:2.38.1"
-    kapt "com.google.dagger:hilt-android-compiler:2.38.1"
+    kapt("com.google.dagger:hilt-android-compiler:2.38.1")
 
 
 

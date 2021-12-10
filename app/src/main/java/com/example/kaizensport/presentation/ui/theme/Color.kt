@@ -1,4 +1,4 @@
-package com.example.kaizensport.ui.theme
+package com.example.kaizensport.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
