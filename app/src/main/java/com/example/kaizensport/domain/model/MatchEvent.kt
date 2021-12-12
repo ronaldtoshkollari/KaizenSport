@@ -3,7 +3,8 @@ package com.example.kaizensport.domain.model
 data class MatchEvent(
     val eventId: String,
     val eventName: String,
-    val eventStartTime: String,
-    val isEventFavourite: Boolean = false,
-    val sportId: String
+    var eventStartTime: String,
+    var isEventFavourite: Boolean = false,
+    val sportId: String,
+    val eventTimeFormatted : String = "-"
 )

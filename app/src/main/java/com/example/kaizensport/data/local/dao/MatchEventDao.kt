@@ -18,4 +18,9 @@ interface MatchEventDao {
 
     @Query("DELETE FROM matches")
     suspend fun deleteAllMatchEvents()
+
+    @Query("SELECT * FROM matches")
+    suspend fun getAllMatchEvents(): List<MatchEventEntity>
+
+
 }

@@ -6,6 +6,6 @@ import retrofit2.http.GET
 interface KaizenApi {
 
     @GET("api/sports")
-    suspend fun getMatchesInfo(): List<SportInfoDto>
+    suspend fun getMatchesInfo(): List<SportInfoDto>?
 
 }

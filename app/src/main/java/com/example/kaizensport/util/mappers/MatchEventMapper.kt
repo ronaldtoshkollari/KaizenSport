@@ -24,4 +24,14 @@ object MatchEventMapper {
         )
     }
 
+    fun modelToEntity(matchEvent: MatchEvent): MatchEventEntity{
+        return MatchEventEntity(
+            eventId = matchEvent.eventId,
+            eventName = matchEvent.eventName,
+            eventStartTime = matchEvent.eventStartTime,
+            sportId = matchEvent.sportId,
+            isEventFavourite = matchEvent.isEventFavourite
+        )
+    }
+
 }

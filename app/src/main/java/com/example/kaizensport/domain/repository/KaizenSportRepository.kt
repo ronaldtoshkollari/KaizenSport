@@ -7,10 +7,12 @@ import kotlinx.coroutines.flow.Flow
 
 interface KaizenSportRepository {
 
-    suspend fun getCategories(): Flow<Resource<List<Category>>>
+     fun getCategories(): Flow<Resource<List<Category>>>
 
-    suspend fun getMatchEvents(): Flow<Resource<List<MatchEvent>>>
+     fun getMatchEvents(): Flow<Resource<List<MatchEvent>>>
 
-    suspend fun clearDatabase()
+     suspend fun clearDatabase()
+
+
 
 }
