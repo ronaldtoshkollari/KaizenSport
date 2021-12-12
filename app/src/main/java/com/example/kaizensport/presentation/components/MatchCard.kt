@@ -50,14 +50,10 @@ fun MatchCard(
         if(timeInMilliseconds.value != 0L){
             delay(1000L)
             timeInMilliseconds.value -= 1000L
-            updateCountDown(timeInMilliseconds.value.toString())
             timeForEvent.value = DateConverter.untilEvent(timeInMilliseconds.value.toString())
         }
 
     }
-
-
-
 
     Column(
         modifier = Modifier

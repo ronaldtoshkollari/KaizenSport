@@ -6,8 +6,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -17,6 +17,7 @@ import com.example.kaizensport.presentation.components.CategoryBar
 import com.example.kaizensport.presentation.components.CustomTopAppBar
 import com.example.kaizensport.presentation.components.MatchCard
 import com.example.kaizensport.presentation.viewmodel.KaizenSportViewModel
+import kotlinx.coroutines.delay
 
 @Composable
 fun HomeScreen(
@@ -24,6 +25,8 @@ fun HomeScreen(
 ) {
 
     val state = viewModel.state.value
+
+
 
     Scaffold(topBar = {
         CustomTopAppBar(title = "Kaizen Sport")
@@ -91,11 +94,13 @@ fun HomeScreen(
                 if (isExpanded) {
                     LazyRow() {
                         items(viewModel.getMatchesOfCategory(category)) { matchEvent ->
+
                             MatchCard(
                                 matchEvent = matchEvent,
                                 updateFavouriteMatch = { viewModel.updateFavouriteMatch(matchEvent) },
-                                updateCountDown = { viewModel.updateCountDown(it, matchEvent)} )
+                                updateCountDown = { } )
                             Spacer(modifier = Modifier.width(24.dp))
+
                         }
                     }
                 }
