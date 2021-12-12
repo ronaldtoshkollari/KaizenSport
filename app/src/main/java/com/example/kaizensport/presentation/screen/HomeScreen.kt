@@ -17,6 +17,7 @@ import com.example.kaizensport.presentation.components.CategoryBar
 import com.example.kaizensport.presentation.components.CustomTopAppBar
 import com.example.kaizensport.presentation.components.MatchCard
 import com.example.kaizensport.presentation.viewmodel.KaizenSportViewModel
+import com.example.kaizensport.util.DateConverter
 import kotlinx.coroutines.delay
 
 @Composable
@@ -25,6 +26,7 @@ fun HomeScreen(
 ) {
 
     val state = viewModel.state.value
+
 
 
 
@@ -97,10 +99,11 @@ fun HomeScreen(
 
                             MatchCard(
                                 matchEvent = matchEvent,
-                                updateFavouriteMatch = { viewModel.updateFavouriteMatch(matchEvent) },
-                                updateCountDown = { } )
+                                updateFavouriteMatch = {
+                                    viewModel.updateFavouriteMatch(matchEvent)
+                                },
+                                updateCountDown = { viewModel.updateCountDowns(it) })
                             Spacer(modifier = Modifier.width(24.dp))
-
                         }
                     }
                 }
@@ -109,6 +112,8 @@ fun HomeScreen(
 
             }
         }
+
+
 
 
     }

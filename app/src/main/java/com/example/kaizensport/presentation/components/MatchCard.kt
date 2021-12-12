@@ -22,38 +22,34 @@ import androidx.compose.ui.unit.sp
 import com.example.kaizensport.domain.model.MatchEvent
 import com.example.kaizensport.R
 import com.example.kaizensport.util.DateConverter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+
 
 @Composable
 fun MatchCard(
     matchEvent: MatchEvent,
     updateFavouriteMatch: () -> Unit,
-    updateCountDown: (time: String) -> Unit
+    updateCountDown: (matchEvent: MatchEvent) -> Unit
 ) {
 
     val opponents = matchEvent.eventName.split("-")
 
-    val timeInMilliseconds = remember {
+    val timeToStart = remember {
         mutableStateOf(matchEvent.eventStartTime.toLong())
     }
 
-    val timeForEvent = remember {
-        mutableStateOf(DateConverter.untilEvent(matchEvent.eventStartTime))
-    }
+    LaunchedEffect(key1 = timeToStart.value){
 
-    LaunchedEffect(key1 = timeInMilliseconds.value) {
-
-        if(timeInMilliseconds.value != 0L){
-            delay(1000L)
-            timeInMilliseconds.value -= 1000L
-            timeForEvent.value = DateConverter.untilEvent(timeInMilliseconds.value.toString())
-        }
+        delay(1000L)
+        timeToStart.value -= 1000L
 
     }
+
+    SideEffect {
+
+        updateCountDown(matchEvent)
+    }
+
 
     Column(
         modifier = Modifier
@@ -74,7 +70,7 @@ fun MatchCard(
         ) {
 
             Text(
-                text = timeForEvent.value,
+                text = DateConverter.untilEvent(matchEvent.eventStartTime),
                 color = Color.White,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Light

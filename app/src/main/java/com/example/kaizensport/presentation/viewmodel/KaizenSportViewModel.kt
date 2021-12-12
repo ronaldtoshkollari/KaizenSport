@@ -87,7 +87,6 @@ class KaizenSportViewModel @Inject constructor(
 
                 is Resource.Success -> {
                     _state.value = _state.value.copy(matchesList = result.data ?: emptyList())
-                    updateCountDowns()
                 }
 
             }
@@ -97,7 +96,7 @@ class KaizenSportViewModel @Inject constructor(
 
     fun getMatchesOfCategory(category: Category): List<MatchEvent> {
 
-        updateCountDowns()
+
         return _state.value.matchesList.filter { it.sportId == category.id }
             .sortedByDescending { it.isEventFavourite }
 
@@ -106,7 +105,7 @@ class KaizenSportViewModel @Inject constructor(
 
     fun updateFavouriteMatch(matchEvent: MatchEvent) {
 
-        updateCountDowns()
+
         val updatedMatches = updateMatchFavourite(_state.value.matchesList, matchEvent)
 
         _state.value = state.value.copy(matchesList = updatedMatches.sortedByDescending { it.isEventFavourite }, message = "${matchEvent.eventName} added to Favourite")
@@ -115,7 +114,7 @@ class KaizenSportViewModel @Inject constructor(
 
     fun updateExpandCategory(category: Category) {
 
-        updateCountDowns()
+
         when(category.id) {
 
 
@@ -167,26 +166,16 @@ class KaizenSportViewModel @Inject constructor(
 
     }
 
-    fun updateCountDowns(){
+    fun updateCountDowns(matchEvent: MatchEvent){
 
-        val matches = state.value.matchesList
-
-        viewModelScope.launch(Dispatchers.IO) {
-
-
-            matches.forEach {
-
-                var time = it.eventStartTime.toLong() - 1000L
-
-                while (time != 0L){
-                    delay(1000L)
+        viewModelScope.launch {
+            _state.value.matchesList.forEach {
+                if (matchEvent.eventId == it.eventId){
+                    var time = it.eventStartTime.toLong()
+                    time -= 1000
                     it.eventStartTime = time.toString()
-                    time -= 1000L
-
                 }
-
             }
-
         }
 
     }
