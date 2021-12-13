@@ -40,15 +40,14 @@ fun MatchCard(
 
     LaunchedEffect(key1 = timeToStart.value){
 
-        delay(1000L)
-        timeToStart.value -= 1000L
+        if(timeToStart.value != 0L){
+            delay(1000L)
+            timeToStart.value -= 1000L
+            updateCountDown(matchEvent)
+        }
 
     }
 
-    SideEffect {
-
-        updateCountDown(matchEvent)
-    }
 
 
     Column(

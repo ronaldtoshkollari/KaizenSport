@@ -1,24 +1,22 @@
 package com.example.kaizensport.presentation.screen
 
-import androidx.compose.foundation.Image
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.kaizensport.R
+import com.example.kaizensport.domain.model.Category
 import com.example.kaizensport.presentation.components.CategoryBar
 import com.example.kaizensport.presentation.components.CustomTopAppBar
 import com.example.kaizensport.presentation.components.MatchCard
 import com.example.kaizensport.presentation.viewmodel.KaizenSportViewModel
-import com.example.kaizensport.util.DateConverter
 import kotlinx.coroutines.delay
+
 
 @Composable
 fun HomeScreen(
@@ -91,6 +89,7 @@ fun HomeScreen(
                     viewModel.updateExpandCategory(category)
                 }
 
+
                 Spacer(modifier = Modifier.height(12.dp))
 
                 if (isExpanded) {
@@ -106,6 +105,7 @@ fun HomeScreen(
                             Spacer(modifier = Modifier.width(24.dp))
                         }
                     }
+
                 }
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -119,3 +119,4 @@ fun HomeScreen(
     }
 
 }
+

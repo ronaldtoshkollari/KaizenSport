@@ -1,29 +1,19 @@
 package com.example.kaizensport.presentation.viewmodel
 
-import android.util.Log
+
 import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kaizensport.domain.model.Category
 import com.example.kaizensport.domain.model.MatchEvent
 import com.example.kaizensport.domain.use_case.GetCategories
 import com.example.kaizensport.domain.use_case.GetMatches
-import com.example.kaizensport.domain.use_case.UpdateEventCountDown
 import com.example.kaizensport.domain.use_case.UpdateMatchFavourite
-import com.example.kaizensport.util.DateConverter
 import com.example.kaizensport.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -108,14 +98,17 @@ class KaizenSportViewModel @Inject constructor(
 
         val updatedMatches = updateMatchFavourite(_state.value.matchesList, matchEvent)
 
-        _state.value = state.value.copy(matchesList = updatedMatches.sortedByDescending { it.isEventFavourite }, message = "${matchEvent.eventName} added to Favourite")
+        _state.value = state.value.copy(
+            matchesList = updatedMatches.sortedByDescending { it.isEventFavourite },
+            message = "${matchEvent.eventName} added to Favourite"
+        )
 
     }
 
     fun updateExpandCategory(category: Category) {
 
 
-        when(category.id) {
+        when (category.id) {
 
 
             "FOOT" -> {
@@ -123,7 +116,8 @@ class KaizenSportViewModel @Inject constructor(
             }
 
             "BASK" -> {
-                _state.value = _state.value.copy(isBasketballExpanded = !_state.value.isBasketballExpanded)
+                _state.value =
+                    _state.value.copy(isBasketballExpanded = !_state.value.isBasketballExpanded)
             }
 
             "TENN" -> {
@@ -131,58 +125,62 @@ class KaizenSportViewModel @Inject constructor(
             }
 
             "TABL" -> {
-                _state.value = _state.value.copy(isTableTennisExpanded = !_state.value.isTableTennisExpanded)
+                _state.value =
+                    _state.value.copy(isTableTennisExpanded = !_state.value.isTableTennisExpanded)
             }
 
             "VOLL" -> {
-                _state.value = _state.value.copy(isVolleyballExpanded = !_state.value.isVolleyballExpanded)
+                _state.value =
+                    _state.value.copy(isVolleyballExpanded = !_state.value.isVolleyballExpanded)
             }
 
             "ESPS" -> {
-                _state.value = _state.value.copy(isEsportsExpanded = !_state.value.isEsportsExpanded)
+                _state.value =
+                    _state.value.copy(isEsportsExpanded = !_state.value.isEsportsExpanded)
             }
 
             "ICEH" -> {
-                _state.value = _state.value.copy(isIceHockeyExpanded = !_state.value.isIceHockeyExpanded)
+                _state.value =
+                    _state.value.copy(isIceHockeyExpanded = !_state.value.isIceHockeyExpanded)
             }
 
             "HAND" -> {
-                _state.value = _state.value.copy(isHandballExpanded = !_state.value.isHandballExpanded)
+                _state.value =
+                    _state.value.copy(isHandballExpanded = !_state.value.isHandballExpanded)
             }
 
             "BCHV" -> {
-                _state.value = _state.value.copy(isBeachVolleyExpanded = !_state.value.isBeachVolleyExpanded)
+                _state.value =
+                    _state.value.copy(isBeachVolleyExpanded = !_state.value.isBeachVolleyExpanded)
             }
 
             "SNOO" -> {
-                _state.value = _state.value.copy(isSnookerExpanded = !_state.value.isSnookerExpanded)
+                _state.value =
+                    _state.value.copy(isSnookerExpanded = !_state.value.isSnookerExpanded)
             }
 
             "BADM" -> {
-                _state.value = _state.value.copy(isBadmintonExpanded = !_state.value.isBadmintonExpanded)
+                _state.value =
+                    _state.value.copy(isBadmintonExpanded = !_state.value.isBadmintonExpanded)
             }
 
         }
 
     }
 
-    fun updateCountDowns(matchEvent: MatchEvent){
 
-        viewModelScope.launch {
-            _state.value.matchesList.forEach {
-                if (matchEvent.eventId == it.eventId){
-                    var time = it.eventStartTime.toLong()
-                    time -= 1000
-                    it.eventStartTime = time.toString()
-                }
+    fun updateCountDowns(matchEvent: MatchEvent) {
+
+        _state.value.matchesList.forEach {
+            if (matchEvent.eventId == it.eventId) {
+                var time = it.eventStartTime.toLong()
+                time -= 1000
+                it.eventStartTime = time.toString()
             }
         }
 
+
     }
-
-
-
-
 
 
 }
